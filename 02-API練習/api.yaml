@@ -1,0 +1,67 @@
+openapi: "3.0.2"
+info:
+  title: server02
+  description: 第2回の練習用サーバーです
+  version: "0.1"
+
+servers:
+  - url: http://localhost:8080/
+
+paths:
+  "/02/ping":
+    get:
+      summary: "ping API"
+      description: GETリクエストを受け取ると、"pong"と返すAPIです
+      responses:
+        "200":
+          description: "成功"
+          content:
+            text/plain:
+              schema:
+                type: string
+              examples:
+                pong:
+                  value: "pong"
+        "400":
+          description: "失敗"
+          content:
+            text/plain:
+              schema:
+                type: string
+              examples:
+                error:
+                  value: "error messages"
+  "/02/hello":
+    post:
+      summary: "hello API"
+      description: "nameを受け取り、'Hello,{name}'と返すAPIです"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              required:
+                - "name"
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: "Yamada Taro"
+      responses:
+        "200":
+          description: "成功"
+          content:
+            text/plain:
+              schema:
+                type: string
+              examples:
+                Yamada Taro:
+                  value: "Hello,Yamada Taro"
+        "400":
+          description: "失敗"
+          content:
+            text/plain:
+              schema:
+                type: string
+              examples:
+                error:
+                  value: "error messages"

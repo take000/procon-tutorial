@@ -1,0 +1,105 @@
+openapi: "3.0.2"
+info:
+  title: server03
+  description: 第3回の練習用サーバーです
+  version: "0.1"
+
+servers:
+  - url: http://localhost:8080/
+
+paths:
+  "/03/guessNumberEasy/":
+    post:
+      summary: "数字当てゲームAPI(Easy)"
+      description: |-
+        0~9の数字を当てるゲームです。
+        seed値が同じ場合は、必ず同じ答えになります。
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - "guess"
+                - "seed"
+              properties:
+                guess:
+                  description: "予想する数字"
+                  type: integer
+                  minimum: 0
+                  maximum: 9
+                seed:
+                  description: "乱数のseed値"
+                  type: integer
+                  minimum: 0
+      responses:
+        "200":
+          description: "成功"
+          content:
+            text/plain:
+              schema:
+                type: string
+              examples:
+                正解の場合:
+                  value: "Correct!"
+                正解よりも値が小さい場合:
+                  value: "Too low"
+                正解よりも値が大きい場合:
+                  value: "Too high"
+        "400":
+          description: "失敗"
+          content:
+            text/plain:
+              schema:
+                type: string
+              examples:
+                error:
+                  value: "error messages"
+  "/03/guessNumberHard/":
+    post:
+      summary: "数字当てゲームAPI(Hard)"
+      description: |-
+        0~999の数字を当てるゲームです。
+        seed値が同じ場合は、必ず同じ答えになります。
+        Easyの方との違いは、guessの最大値が9から999になったことです。
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - "guess"
+                - "seed"
+              properties:
+                guess:
+                  description: "予想する数字"
+                  type: integer
+                  minimum: 0
+                  maximum: 999
+                seed:
+                  description: "乱数のseed値"
+                  type: integer
+                  minimum: 0
+      responses:
+        "200":
+          description: "成功"
+          content:
+            text/plain:
+              schema:
+                type: string
+              examples:
+                正解の場合:
+                  value: "Correct!"
+                正解よりも値が小さい場合:
+                  value: "Too low"
+                正解よりも値が大きい場合:
+                  value: "Too high"
+        "400":
+          description: "失敗"
+          content:
+            text/plain:
+              schema:
+                type: string
+              examples:
+                error:
+                  value: "error messages"
